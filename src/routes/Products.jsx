@@ -3,8 +3,16 @@ import PropTypes from "prop-types";
 import { Table, Popconfirm, Button } from "antd";
 import { connect } from "dva";
 import { Link, routerRedux } from "dva/router";
+import { productAdd, productDelete, productAddProductAsync } from '../actions';
 
 const Products = ({ history, dispatch, products }) => {
+    function handleConfirm(record) {
+        // dispatch({
+        //     type: "products/delete",
+        //     payload: record.id,
+        // });
+        dispatch(productDelete(record.id));
+    }
     const columns = [
         {
             title: "Name",
@@ -16,11 +24,7 @@ const Products = ({ history, dispatch, products }) => {
                 return (
                     <Popconfirm
                         title="Delete?"
-                        onConfirm={() =>
-                            dispatch({
-                                type: "products/delete",
-                                payload: record.id,
-                            })}
+                        onConfirm={() => handleConfirm(record)}
                     >
                         <Button>Delete</Button>
                     </Popconfirm>

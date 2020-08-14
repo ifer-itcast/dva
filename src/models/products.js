@@ -21,5 +21,17 @@ export default {
             const { data } = yield call(api.getProduct);
             yield put({ type: 'add', payload: data } );
         }
+    },
+    subscriptions: {
+        // 第一次上来时就会触发此函数
+        ifer({dispatch, history}) {
+            window.onresize = function() {
+                console.log('window reseize');
+            };
+
+            history.listen(location => {
+                console.log(location);
+            });
+        }
     }
 }
