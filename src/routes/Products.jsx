@@ -2,9 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Table, Popconfirm, Button } from "antd";
 import { connect } from "dva";
-import { Link, routerRedux } from 'dva/router';
+import { Link, routerRedux } from "dva/router";
+import * as api from '../services/example';
 
-const Products = ({history, dispatch, products }) => {
+const Products = ({ history, dispatch, products }) => {
     const columns = [
         {
             title: "Name",
@@ -28,12 +29,28 @@ const Products = ({history, dispatch, products }) => {
             },
         },
     ];
-    return <div>
-        <Table dataSource={products} columns={columns} />
-        <Link to="/">Home</Link>
-        <Button type="primary" onClick={() => history.push('/')}>Home</Button>
-        <Button type="primary" onClick={() => dispatch(routerRedux.push('/'))}>Home</Button>
-    </div>
+    function getProducts() {
+        api.getProduct().then(console.log);
+        api.getUser().then(console.log);
+    }
+    return (
+        <div>
+            <Table dataSource={products} columns={columns} />
+            <Link to="/">Home</Link>
+            <Button type="primary" onClick={() => history.push("/")}>
+                Home
+            </Button>
+            <Button
+                type="primary"
+                onClick={() => dispatch(routerRedux.push("/"))}
+            >
+                Home
+            </Button>
+            <Button type="primary" onClick={getProducts}>
+                Add
+            </Button>
+        </div>
+    );
 };
 
 Products.propTypes = {

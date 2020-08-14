@@ -7,6 +7,16 @@ export default {
     reducers: {
         'delete'(state, { payload: id }) {
             return state.filter(item => item.id !== id);
+        },
+        'add'(state, action) {
+            const newProducts = JSON.parse(JSON.stringify(state));
+            newProducts.push(action.payload);
+            return newProducts;
+        }
+    },
+    effects: {
+        *addProductAsync({ payload }, { call, put }) {
+            yield put({ type: 'add', payload } );
         }
     }
 }
