@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { Table, Popconfirm, Button } from "antd";
 import { connect } from "dva";
 import { Link, routerRedux } from "dva/router";
-import * as api from '../services/example';
 
 const Products = ({ history, dispatch, products }) => {
     const columns = [
@@ -30,8 +29,9 @@ const Products = ({ history, dispatch, products }) => {
         },
     ];
     function getProducts() {
-        api.getProduct().then(console.log);
-        api.getUser().then(console.log);
+        // api.getProduct().then(console.log);
+        // api.getUser().then(console.log);
+        dispatch({ type: 'products/addProductAsync' });
     }
     return (
         <div>

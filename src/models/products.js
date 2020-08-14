@@ -1,3 +1,5 @@
+import * as api from '../services/example';
+
 export default {
     namespace: 'products',
     state: [
@@ -16,7 +18,8 @@ export default {
     },
     effects: {
         *addProductAsync({ payload }, { call, put }) {
-            yield put({ type: 'add', payload } );
+            const { data } = yield call(api.getProduct);
+            yield put({ type: 'add', payload: data } );
         }
     }
 }
